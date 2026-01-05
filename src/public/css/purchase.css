@@ -1,0 +1,314 @@
+/* 全体の枠（親コンテナ） */
+.purchase-item {
+    position: relative;
+    width: 500px;   /* 好きに調整してOK */
+    height: 200px;
+}
+
+/* Group 7 相当：商品画像ボックス */
+.purchase-item__thumb {
+    position: absolute;
+    top: 100px;
+    left: 80px;
+
+    width: 177.5px;
+    height: 177.5px;
+
+    background: #d9d9d9;
+    border-radius: 4px;
+    overflow: hidden;
+}
+
+.purchase-item__thumb img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* 商品名＋価格のブロック */
+.purchase-item__info {
+    position: absolute;
+    top: 100px;
+    left: 313px;
+
+    width: 326px;
+    height: 187px;
+}
+
+/* 商品名 */
+.purchase-item__name {
+    font-family: 'Inter', sans-serif;
+    font-size: 30px;
+    font-weight: 700;
+    line-height: 1.2;
+    margin-bottom: 12px;
+}
+
+/* 価格全体の行 */
+.purchase-item__price {
+    display: flex;
+    align-items: baseline;
+    gap: 4px;
+}
+
+/* ¥ 部分（少し小さく） */
+.purchase-item__yen {
+    font-family: 'Inter', sans-serif;
+    font-size: 27px;
+    font-weight: 400;
+}
+
+/* 金額部分（太字） */
+.purchase-item__amount {
+    font-family: 'Inter', sans-serif;
+    font-size: 30px;
+    font-weight: 700;
+}
+
+.purchase-line {
+    position: absolute;
+    top: 350px;
+    left: 80px;
+
+    width: 600px;
+    height: 1px;
+
+    background: rgba(0, 0, 0, 1);
+}
+
+/* --- 支払い方法ブロック全体 --- */
+.payment-method {
+    position: absolute;
+    top: 403px;
+    left: 115px;
+
+    width: 326px;
+    height: 85px;
+}
+
+/* --- ラベル（支払い方法） --- */
+.payment-method__label {
+    font-family: 'Inter', sans-serif;
+    font-size: 30px;
+    font-weight: 700;
+    line-height: 100%;
+    letter-spacing: 0;
+}
+
+/* --- セレクトボックス枠 --- */
+.payment-method__select {
+    position: absolute;
+    top: 96px;
+    left: 61px;
+
+    width: 200px;
+    height: 31px;
+
+    border: 1px solid rgba(0,0,0,1);
+    border-radius: 4px;
+
+    display: flex;
+    align-items: center;
+    padding: 0 12px;
+    box-sizing: border-box;
+
+    background: #fff;
+}
+
+.payment-method__select select {
+    border: none;
+    outline: none;
+    background: transparent;
+
+    appearance: none; /* ▼を消す（カスタムアイコンを使うため） */
+    -webkit-appearance: none;
+    -moz-appearance: none;
+
+    width: 100%;
+    height: 100%;
+    padding-right: 24px; /* 三角アイコンのぶん余白を作る */
+    font-size: 16px;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+
+
+/* --- placeholder（選択してください）--- */
+.payment-method__placeholder {
+    font-family: 'Inter', sans-serif;
+    font-size: 16px;
+    font-weight: 700;
+    color: rgba(0,0,0,1);
+}
+
+/* --- ▼（Polygon）を CSS で再現 --- */
+.payment-method__icon {
+    position: absolute;
+    right: 10px;
+
+    width: 0;
+    height: 0;
+
+    border-left: 7px solid transparent;
+    border-right: 7px solid transparent;
+    border-top: 8px solid rgba(0,0,0,1);
+
+    pointer-events: none;
+}
+
+.purchase-line2 {
+    position: absolute;
+    top: 593px;
+    left: 80px;
+
+    width: 600px;
+    height: 1px;  /* Figma の 0px line は実際は 1px */
+
+    background: rgba(0, 0, 0, 1);
+
+}
+
+/* 親要素（absolute の基準） */
+.shipping-section {
+    position: relative;
+    top: 50px;
+}
+
+/* ---- タイトル：配送先 ---- */
+.shipping-title {
+    position: absolute;
+    top: 593px;
+    left: 115px;
+
+    width: 326px;
+    height: 85px;
+
+    font-family: 'Inter', sans-serif;
+    font-size: 24px;
+    font-weight: 700;
+}
+
+/* ---- 変更ボタン ---- */
+.shipping-edit {
+    position: absolute;
+    top: 593px;
+    left: 590px;
+
+    width: 115px;
+    height: 40px;
+
+    background: transparent;
+    color: rgba(0, 115, 204, 1);
+
+    font-family: 'Inter', sans-serif;
+    font-size: 18px;
+    font-weight: 700;
+
+    border: none;
+    cursor: pointer;
+}
+
+/* ---- 住所表示 ---- */
+.shipping-address {
+    position: absolute;
+    top: 691px;
+    left: 176px;
+
+    width: 280px;
+    height: 58px;
+
+    font-family: 'Inter', sans-serif;
+    font-size: 18px;
+    line-height: 1.5;
+    color: #333;
+}
+
+/* ---- 下の区切り線（Line21）---- */
+.purchase-line3 {
+    position: absolute;
+    top: 808px;
+    left: 80px;
+
+    width: 600px;
+    height: 1px;
+
+    background: rgba(0,0,0,1);
+}
+
+/* Rectangle 42 + 43 をまとめた外枠 */
+.confirm-surface {
+    position: absolute;
+    top: 173px;
+    left: 740px;
+
+    width: 440px;
+    height: 230px;              /* 115 + 115 */
+
+    border: 1px solid #000;     /* 上下左右全部の枠 */
+    box-sizing: border-box;
+
+    font-family: 'Inter', sans-serif;
+}
+
+/* 中の1段（上の115px / 下の115px） */
+.confirm-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    height: 115px;              /* Rectangle 42 / 43 の高さ */
+    padding: 0 20px;            /* 左右の余白（中身を枠内に収める） */
+
+    box-sizing: border-box;
+    border-bottom: 1px solid #000;  /* Rectangle 43 の上の線になる */
+}
+
+/* 一番下の行だけ下線はいらない */
+.confirm-row:last-child {
+    border-bottom: none;
+}
+
+/* 左側：商品代金 / 支払い方法 */
+.confirm-label {
+    width: 50%;                  /* 220px 相当のイメージでもOK */
+    font-size: 18px;
+    font-weight: 700;
+    text-align: center;
+}
+
+/* 右側：¥47,000 / コンビニ払い */
+.confirm-value {
+    width: 50%;
+    font-size: 18px;
+    font-weight: 700;
+    text-align: center;
+}
+
+.purchase-button {
+    position: absolute;
+    top: 469px;
+    left: 730px;
+
+    width: 440px;
+    height: 60px;
+
+    background: rgba(255, 85, 85, 1);
+    border: none;
+    border-radius: 4px;
+
+    font-family: 'Inter', sans-serif;
+    font-size: 24px;
+    font-weight: 700;
+    color: #fff;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    cursor: pointer;
+}
+
+.form__error {
+    color: red;
+}

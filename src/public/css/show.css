@@ -1,0 +1,388 @@
+.product-image-area {
+    position: relative;
+    width: 690px;
+    min-height: 600px;
+}
+
+.product-image-box {
+    width: 200px;         /* 好きなサイズに調整：例として 200×200 にしておく */
+    height: 200px;
+
+    position: absolute;
+    top: 200px;
+    left: 200px;
+
+    background: rgba(217, 217, 217, 1);
+    border-radius: 4px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.product-image-box img {
+    max-width: 250%;
+    max-height: 250%;
+    object-fit: contain;   /* はみ出さずに中に収める */
+}
+
+
+.product-description-area {
+    position: relative;
+    margin-left: 600px;
+    margin-top: -20px;
+    width: 690px;
+    min-height: 1704px;
+}
+
+.favorite-block,
+.comment-block {
+    display: flex;
+    flex-direction: column;   /* ← 縦並びにする */
+    align-items: center;      /* ← 中央揃え */
+    gap: 4px;                 /* ← アイコンと数字の間隔 */
+}
+
+
+/* ---- 商品タイトル部分 ---- */
+
+.product-title {
+    position: absolute;
+    top:-550px;
+    left: 65px;
+
+    width: 570px;
+    height: 273px;
+}
+
+.product-name {
+    width: 570px;
+    height: 77px;
+
+    font-family: 'Inter', sans-serif;
+    font-size: 32px;
+    font-weight: 700;
+}
+
+.product-brand {
+    position: absolute;
+    top: 70px;
+
+    width: 570px;
+    height: 28px;
+
+    font-size: 20px;
+    font-weight: 500;
+}
+
+.product-price {
+    position: absolute;
+    top: 120px;
+
+    width: 570px;
+    height: 45px;
+
+    font-size: 28px;
+    font-weight: 700;
+}
+
+.product-actions {
+    position: absolute;
+    top: -350px;
+    left: 80px;
+
+    display: flex;
+    gap: 50px;
+}
+
+.action-icon {
+    display: block;
+}
+
+.action-icon.heart {
+    width: 45px;
+    height: 40px;
+}
+
+.action-icon.comment {
+    width: 40px;
+    height: 40px;
+}
+
+.form__button-submit {
+    position: absolute;
+    top: -320px;
+    left: 50px;
+    font-family: 'Inter', sans-serif;
+    font-size: 26px;
+    width: 480px;
+    height: 65px;
+
+    background-color: rgba(255, 85, 85, 1);
+    border-radius: 5px;
+    border: none;
+
+    font-size: 24px;
+    font-weight: 700;
+    color: rgba(255, 255, 255, 1);
+
+    margin-top: 50px;
+}
+
+.product-description {
+    position: absolute;
+    top: -200px;
+    left: 55px;
+
+    width: 570px;
+    height: 321px;
+
+    opacity: 1;
+}
+
+.product-description__title {
+    width: 559px;
+    height: 74px;
+
+    font-family: 'Inter', sans-serif;
+    font-size: 36px;
+    font-weight: 700;
+    line-height: 100%;
+    letter-spacing: 0;
+
+    display: flex;
+    align-items: center;
+}
+
+.product-description__text {
+    margin-top: 20px;
+
+    font-family: 'Inter', sans-serif;
+    font-size: 16px;
+    line-height: 1.6;
+    color: #333;
+}
+
+.product-info {
+    position: absolute;
+    top: -50px;
+    left: 50px;
+
+    width: 570px;
+    height: 230px;
+
+    opacity: 1;
+}
+
+.product-info__title {
+    font-family: 'Inter', sans-serif;
+    font-size: 36px;
+    font-weight: 700;
+    line-height: 100%;
+    letter-spacing: 0;
+
+    display: flex;
+    align-items: center; /* vertical-align: middle 代わり */
+
+    margin-bottom: 20px;
+}
+
+.product-info__row {
+    display: flex;
+    align-items: center;
+    margin-bottom: 12px;
+}
+
+.product-info__row:first-of-type {
+    margin-bottom: 50px;
+}
+
+.product-info__label {
+    width: 120px;
+    font-family: 'Inter', sans-serif;
+    font-size: 24px;
+    font-weight: 700;
+}
+
+.product-info__value {
+    flex: 1;
+    display: flex;
+    justify-content: flex-end;
+    flex-wrap: wrap;
+    padding-right: 160px;
+}
+
+.category-pill {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    min-width: 102px;
+    height: 30px;
+
+    padding: 0 16px;
+    border-radius: 15px;
+
+    font-family: 'Inter', sans-serif;
+    font-size: 20px;
+    font-weight: 400;
+
+    background: #f3f3f3;
+    text-align: center;
+}
+
+
+.product-condition-text {
+    font-family: 'Inter', sans-serif;
+    font-size: 20px;
+    font-weight: 400;
+}
+
+.product-comments__title {
+    width: 570px;
+    position: absolute;
+    top: 130px;
+    left: 45px;
+
+    font-family: 'Inter', sans-serif;
+    font-size: 30px;
+    font-weight: 700;
+    line-height: 100%;
+    letter-spacing: 0;
+
+    display: flex;
+    align-items: center;
+}
+
+.comments-list {
+    width: 400px;
+    position: relative;
+    top: 200px;
+
+    min-height: 110px;
+}
+
+.comment {
+    display: flex;
+}
+
+.comment__avatar {
+    width: 70px;
+    height: 70px;
+    margin-left: 40px;
+
+    border-radius: 50%;
+    background: #d9d9d9;
+    overflow: hidden;
+}
+
+.comment__avatar img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.comment-form {
+    margin-top: 230px;
+}
+
+.comment__body {
+    flex: 1;
+}
+
+.comment__author {
+    font-family: 'Inter', sans-serif;
+    font-size: 24px;
+    font-weight: 700;
+    margin-top: 10px;
+    margin-bottom: 20px;
+    margin-left: 50px;
+}
+
+.comment__text {
+    font-family: 'Inter', sans-serif;
+    font-size: 16px;
+    line-height: 1.6;
+}
+
+.comment-box {
+    width: 530px;
+    height: 40px;
+    margin-left: 50px;
+
+    background: rgba(229, 229, 229, 1);
+    border-radius: 5px;
+
+    display: flex;
+    align-items: center;     /* 縦中央 */
+    padding: 0 15px;         /* 左右余白 */
+    box-sizing: border-box;
+
+    font-family: 'Inter', sans-serif;
+    font-size: 16px;
+    color: #333;
+
+    margin-top: 30px;
+    margin-bottom: 30px;
+}
+
+.form__label--item,
+.form__input--item {
+    width: 680px;
+    height: 20px;
+    margin-left: 50px;
+    margin-top: 30px;
+
+    font-family: 'Inter', sans-serif;
+    font-size: 24px;
+    font-weight: 700;
+    line-height: 100%;
+    letter-spacing: 0;
+    color: rgba(0, 0, 0, 1);
+}
+
+.form__group-content textarea {
+    width: 530px;
+    height: 200px;
+    margin-left: 50px;
+    border-radius: 4px;
+    border: 1px solid #000;
+}
+
+.comments-button {
+    width: 530px;
+    height: 50px;
+    margin-left: 50px;
+
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+
+    margin-top: 30px;
+}
+
+.comments-button__inner {
+    width: 570px;
+    height: 56px;
+
+    margin-top: 22px; /* Figma の top:22px */
+
+    background: rgba(255, 85, 85, 1);
+    color: #fff;
+
+    border: none;
+    border-radius: 4px;
+
+    font-family: 'Inter', sans-serif;
+    font-size: 20px;
+    font-weight: 700;
+
+    cursor: pointer;
+}
+
+.error-message {
+    color: #e53935;          /* 赤色 */
+    margin-left: 55px;       /* 元が50px → 少し右へ */
+    font-size: 20px;
+    margin-top: 5px;
+}
