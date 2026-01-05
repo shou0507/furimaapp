@@ -49,7 +49,7 @@ php artisan db:seed
 - MySQL8.0.26
 
 ## ER図
-![alt](/Users/sugiyamashou/furima1/src/erdiagram.drawio)
+![ER図](./src/erdiagram.png)
 
 ## URL
 - 開発環境：http://localhost/
