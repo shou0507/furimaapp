@@ -28,6 +28,7 @@ DB_DATABASE=laravel_db
 DB_USERNAME=laravel_user
 DB_PASSWORD=laravel_pass
 ```
+cp .env.example .env
 5. アプリケーションキーの作成
 ``` bash
 php artisan key:generate
@@ -47,9 +48,45 @@ php artisan db:seed
 - PHP8.3.0
 - Laravel8.83.27
 - MySQL8.0.26
+- Mailtrap（メール送信テスト）
+- Stripe（クレジットカード決済）
 
 ## ER図
 ![ER図](./src/erdiagram.png)
 ## URL
 - 開発環境：http://localhost/
 - phpMyAdmin:：http://localhost:8080/
+
+## メール送信設定（Mailtrap）
+
+開発環境では Mailtrap を使用してメール送信をテストしています。
+
+1. [Mailtrap](https://mailtrap.io/) にサインアップし、Inbox を作成します。
+2. Inbox の「Integration」タブから Laravel / PHP 用の接続情報を確認します。
+3. `.env` に以下のように設定します（値は Mailtrap の画面からコピーしてください）。
+
+```text
+MAIL_MAILER=smtp
+MAIL_HOST=sandbox.smtp.mailtrap.io
+MAIL_PORT=2525
+MAIL_USERNAME=（Mailtrap の Username）
+MAIL_PASSWORD=（Mailtrap の Password）
+MAIL_ENCRYPTION=tls
+
+MAIL_FROM_ADDRESS=test@example.com
+MAIL_FROM_NAME="MyApp"
+
+## 決済機能（Stripe）
+
+本アプリの決済機能は Stripe を利用しています（開発環境ではテストモードを使用します）。
+
+1. [Stripe](https://stripe.com/) にサインアップします。
+2. Stripe ダッシュボードの「開発者」 > 「API キー」からテスト用の公開可能キー・シークレットキーを取得します。
+3. `.env` に以下を追加します。
+
+```text
+STRIPE_KEY=pk_test_xxxxxxxxxxxxxxxxxxxxx
+STRIPE_SECRET=sk_test_xxxxxxxxxxxxxxxxxxxxx
+
+決済機能を利用する際は、Stripe のテストカード番号（例：4242 4242 4242 4242）を使用してください。
+
