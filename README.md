@@ -52,7 +52,7 @@ php artisan db:seed
 - Stripe（クレジットカード決済）
 
 ## ER図
-![ER図](src/erdiagram.png)
+![ER図](./src/erdiagram.png)
 ## URL
 - 開発環境：http://localhost/
 - phpMyAdmin:：http://localhost:8080/
