@@ -61,7 +61,7 @@ class ItemSeeder extends Seeder
                 'status' => 'active',
             ],
             [
-                'user_id' => 1,
+                'user_id' => 2,
                 'name' => 'マイク',
                 'price' => 8000,
                 'brand_name' => 'なし',
@@ -71,7 +71,7 @@ class ItemSeeder extends Seeder
                 'status' => 'active',
             ],
             [
-                'user_id' => 1,
+                'user_id' => 2,
                 'name' => 'ショルダーバッグ',
                 'price' => 3500,
                 'brand_name' => '',
@@ -81,7 +81,7 @@ class ItemSeeder extends Seeder
                 'status' => 'active',
             ],
             [
-                'user_id' => 1,
+                'user_id' => 2,
                 'name' => 'タンブラー',
                 'price' => 500,
                 'brand_name' => 'なし',
@@ -91,7 +91,7 @@ class ItemSeeder extends Seeder
                 'status' => 'active',
             ],
             [
-                'user_id' => 1,
+                'user_id' => 2,
                 'name' => 'コーヒーミル',
                 'price' => 4000,
                 'brand_name' => 'Starbacks',
@@ -101,7 +101,7 @@ class ItemSeeder extends Seeder
                 'status' => 'active',
             ],
             [
-                'user_id' => 1,
+                'user_id' => 2,
                 'name' => 'メイクセット',
                 'price' => 2500,
                 'brand_name' => '',
