@@ -2,14 +2,15 @@
 
 namespace Tests\Feature;
 
-use Tests\TestCase;
-use App\Models\User;
 use App\Models\Item;
+use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Tests\TestCase;
 
 class SearchTest extends TestCase
 {
     use RefreshDatabase;
+
     /**
      * A basic feature test example.
      *
@@ -28,7 +29,7 @@ class SearchTest extends TestCase
 
         $keyword = '冷蔵';
 
-        $response = $this->get('/?keyword=' . $keyword);
+        $response = $this->get('/?keyword='.$keyword);
 
         $response->assertStatus(200);
 
@@ -44,18 +45,18 @@ class SearchTest extends TestCase
 
         $keyword = 'スマホ';
 
-        $responseHome = $this->actingAs($user)->get('/?keyword=' . $keyword);
+        $responseHome = $this->actingAs($user)->get('/?keyword='.$keyword);
 
         $responseHome->assertStatus(200);
 
         $responseHome->assertSee('name="keyword"', false);
-        $responseHome->assertSee('value="' . $keyword . '"', false);
+        $responseHome->assertSee('value="'.$keyword.'"', false);
 
-        $responseMypage = $this->actingAs($user)->get('/mypage?keyword=' . $keyword);
+        $responseMypage = $this->actingAs($user)->get('/mypage?keyword='.$keyword);
 
         $responseMypage->assertStatus(200);
 
         $responseMypage->assertSee('name="keyword"', false);
-        $responseMypage->assertSee('value="' . $keyword . '"', false);
+        $responseMypage->assertSee('value="'.$keyword.'"', false);
     }
 }

@@ -20,7 +20,7 @@ class ItemController extends Controller
             });
 
         if ($keyword) {
-            $itemsQuery->where('name', 'LIKE', '%' . $keyword . '%');
+            $itemsQuery->where('name', 'LIKE', '%'.$keyword.'%');
         }
 
         $items = $itemsQuery->get();
@@ -31,7 +31,7 @@ class ItemController extends Controller
             $mylistQuery = auth()->user()->favoriteItems();
 
             if ($keyword) {
-                $mylistQuery->where('name', 'LIKE', '%' . $keyword . '%');
+                $mylistQuery->where('name', 'LIKE', '%'.$keyword.'%');
             }
 
             $mylistItems = $mylistQuery->get();

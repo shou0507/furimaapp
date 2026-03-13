@@ -20,6 +20,11 @@ class Item extends Model
         'status',
     ];
 
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
+
     public function categories()
     {
         return $this->belongsToMany(Category::class, 'category_item', 'item_id', 'category_id')
@@ -42,5 +47,10 @@ class Item extends Model
     {
         return $this->belongsToMany(User::class, 'favorites')
             ->withTimestamps();
+    }
+
+    public function transactions()
+    {
+        return $this->hasMany(Transaction::class);
     }
 }

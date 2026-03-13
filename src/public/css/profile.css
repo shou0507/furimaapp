@@ -28,7 +28,7 @@
 
 .user-info__name {
     font-family: 'Inter', sans-serif;
-    font-size: 24px;
+    font-size: 30px;
     font-weight: 700;
     line-height: 100%;
     letter-spacing: 0;
@@ -177,4 +177,55 @@
 
 .form__error {
     color: red;
+}
+
+.star {
+    font-size: 40px;
+    color: rgba(217, 217, 217, 1);
+}
+
+.star.active {
+    color: rgba(255, 240, 72, 1);
+}
+
+.tab-btn--with-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.tab-btn__badge {
+    min-width: 27px;
+    height: 26px;
+    padding: 0 6px;
+    border-radius: 10px;
+    background: rgba(255, 0, 0, 1);
+    color: rgba(255, 255, 255, 1);
+    font-family: Inter, sans-serif;
+    font-size: 24px;
+    font-weight: 700;
+    line-height: 26px;
+    text-align: center;
+    display: inline-block;
+}
+
+.item-card__image-wrap {
+    position: relative;
+}
+
+.item-card__image-badge {
+    position: absolute;
+    top: 6px;
+    left: 6px;
+    min-width: 20px;
+    height: 20px;
+    padding: 0 4px;
+    border-radius: 50%;
+    background: rgba(255, 0, 0, 1);
+    color: rgba(255, 255, 255, 1);
+    font-size: 10px;
+    font-weight: 700;
+    line-height: 20px;
+    text-align: center;
+    z-index: 2;
 }

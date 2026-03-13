@@ -7,6 +7,7 @@ use App\Http\Requests\PurchaseRequest;
 use App\Models\Address;
 use App\Models\Item;
 use App\Models\Purchase;
+use App\Models\Transaction;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -66,7 +67,19 @@ class PurchaseController extends Controller
                 ]
             );
 
-            return redirect('/');
+            Transaction::firstOrCreate(
+                [
+                    'item_id' => $item->id,
+                    'buyer_id' => $user->id,
+                    'seller_id' => $item->user_id,
+                ],
+                [
+                    'status' => 'trading',
+                    'last_message_at' => now(),
+                ]
+            );
+
+            return redirect()->route('mypage.index');
         }
 
         \Stripe\Stripe::setApiKey(config('services.stripe.secret'));
@@ -74,7 +87,6 @@ class PurchaseController extends Controller
         $session = \Stripe\Checkout\Session::create([
             'mode' => 'payment',
             'payment_method_types' => ['card'],
-
             'line_items' => [[
                 'quantity' => 1,
                 'price_data' => [
@@ -85,10 +97,8 @@ class PurchaseController extends Controller
                     ],
                 ],
             ]],
-
-            'success_url' => url("/purchase/{$item->id}/success").'?session_id={CHECKOUT_SESSION_ID}',
+            'success_url' => url("/purchase/{$item->id}/success") . '?session_id={CHECKOUT_SESSION_ID}',
             'cancel_url' => url("/purchase/{$item->id}/cancel"),
-
             'metadata' => [
                 'item_id' => $item->id,
                 'user_id' => $user->id,
@@ -102,17 +112,32 @@ class PurchaseController extends Controller
     public function success($item_id)
     {
         $user = Auth::user();
+        $item = Item::findOrFail($item_id);
 
         Item::where('id', $item_id)
             ->where('status', 'active')
             ->update(['status' => 'sold']);
 
-        Purchase::firstOrCreate([
-            'user_id' => $user->id,
-            'item_id' => $item_id,
-        ]);
+        Purchase::firstOrCreate(
+            [
+                'user_id' => $user->id,
+                'item_id' => $item_id,
+            ]
+        );
 
-        return redirect('/');
+        Transaction::firstOrCreate(
+            [
+                'item_id' => $item->id,
+                'buyer_id' => $user->id,
+                'seller_id' => $item->user_id,
+            ],
+            [
+                'status' => 'trading',
+                'last_message_at' => now(),
+            ]
+        );
+
+        return redirect()->route('mypage.index');
     }
 
     public function cancel($item_id)
