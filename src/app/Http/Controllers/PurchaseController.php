@@ -10,6 +10,7 @@ use App\Models\Purchase;
 use App\Models\Transaction;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class PurchaseController extends Controller
 {
@@ -52,32 +53,37 @@ class PurchaseController extends Controller
         $item = Item::findOrFail($item_id);
 
         if ($request->payment_method === 'konbini') {
+            DB::transaction(function () use ($user, $item, $item_id, $request) {
+                $updated = Item::where('id', $item_id)
+                    ->where('status', 'active')
+                    ->update(['status' => 'sold']);
 
-            Item::where('id', $item_id)
-                ->where('status', 'active')
-                ->update(['status' => 'sold']);
+                if ($updated === 0) {
+                    abort(400, 'この商品は購入できません。');
+                }
 
-            Purchase::firstOrCreate(
-                [
-                    'user_id' => $user->id,
-                    'item_id' => $item_id,
-                ],
-                [
-                    'address_id' => $request->address_id,
-                ]
-            );
+                Purchase::updateOrCreate(
+                    [
+                        'user_id' => $user->id,
+                        'item_id' => $item_id,
+                    ],
+                    [
+                        'address_id' => $request->address_id,
+                    ]
+                );
 
-            Transaction::firstOrCreate(
-                [
-                    'item_id' => $item->id,
-                    'buyer_id' => $user->id,
-                    'seller_id' => $item->user_id,
-                ],
-                [
-                    'status' => 'trading',
-                    'last_message_at' => now(),
-                ]
-            );
+                Transaction::firstOrCreate(
+                    [
+                        'item_id' => $item->id,
+                        'buyer_id' => $user->id,
+                        'seller_id' => $item->user_id,
+                    ],
+                    [
+                        'status' => 'trading',
+                        'last_message_at' => now(),
+                    ]
+                );
+            });
 
             return redirect()->route('mypage.index');
         }
@@ -102,6 +108,7 @@ class PurchaseController extends Controller
             'metadata' => [
                 'item_id' => $item->id,
                 'user_id' => $user->id,
+                'address_id' => $request->address_id,
                 'pay' => 'card',
             ],
         ]);
@@ -109,33 +116,68 @@ class PurchaseController extends Controller
         return redirect($session->url);
     }
 
-    public function success($item_id)
+    public function success(Request $request, $item_id)
     {
         $user = Auth::user();
         $item = Item::findOrFail($item_id);
 
-        Item::where('id', $item_id)
-            ->where('status', 'active')
-            ->update(['status' => 'sold']);
+        if (!$request->filled('session_id')) {
+            return redirect("/purchase/$item_id")
+                ->with('error', '決済セッションが取得できませんでした。');
+        }
 
-        Purchase::firstOrCreate(
-            [
-                'user_id' => $user->id,
-                'item_id' => $item_id,
-            ]
-        );
+        \Stripe\Stripe::setApiKey(config('services.stripe.secret'));
+        $session = \Stripe\Checkout\Session::retrieve($request->session_id);
 
-        Transaction::firstOrCreate(
-            [
-                'item_id' => $item->id,
-                'buyer_id' => $user->id,
-                'seller_id' => $item->user_id,
-            ],
-            [
-                'status' => 'trading',
-                'last_message_at' => now(),
-            ]
-        );
+        if ($session->payment_status !== 'paid') {
+            return redirect("/purchase/$item_id")
+                ->with('error', '決済が完了していません。');
+        }
+
+        if (
+            (int) $session->metadata->user_id !== $user->id ||
+            (int) $session->metadata->item_id !== (int) $item->id
+        ) {
+            abort(403);
+        }
+
+        DB::transaction(function () use ($user, $item, $item_id, $session) {
+            $updated = Item::where('id', $item_id)
+                ->where('status', 'active')
+                ->update(['status' => 'sold']);
+
+            if ($updated === 0) {
+                $purchaseExists = Purchase::where('user_id', $user->id)
+                    ->where('item_id', $item_id)
+                    ->exists();
+
+                if (!$purchaseExists) {
+                    abort(400, 'この商品は購入できません。');
+                }
+            }
+
+            Purchase::updateOrCreate(
+                [
+                    'user_id' => $user->id,
+                    'item_id' => $item_id,
+                ],
+                [
+                    'address_id' => $session->metadata->address_id,
+                ]
+            );
+
+            Transaction::firstOrCreate(
+                [
+                    'item_id' => $item->id,
+                    'buyer_id' => $user->id,
+                    'seller_id' => $item->user_id,
+                ],
+                [
+                    'status' => 'trading',
+                    'last_message_at' => now(),
+                ]
+            );
+        });
 
         return redirect()->route('mypage.index');
     }
