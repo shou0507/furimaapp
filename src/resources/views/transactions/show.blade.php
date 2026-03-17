@@ -76,7 +76,7 @@
                             </div>
 
                             @if ($message->message)
-                                <div class="message-right">
+                                <div class="message-right image-message">
                                     <span id="message-text-{{ $message->id }}">
                                         {{ $message->message }}
                                     </span>
@@ -94,8 +94,8 @@
                             @endif
 
                             @if ($message->image_path)
-                                <div class="message-right">
-                                    <img src="{{ asset('storage/' . $message->image_path) }}" alt="メッセージ画像">
+                                <div class="message-right image-message">
+                                    <img class="chat-image" src="{{ asset('storage/' . $message->image_path) }}" alt="メッセージ画像">
                                 </div>
                             @endif
 
@@ -133,7 +133,7 @@
 
                             @if ($message->image_path)
                                 <div class="message-left">
-                                    <img src="{{ asset('storage/' . $message->image_path) }}" alt="メッセージ画像">
+                                    <img class="chat-image" src="{{ asset('storage/' . $message->image_path) }}" alt="メッセージ画像">
                                 </div>
                             @endif
                         </div>
@@ -153,10 +153,14 @@
                     <div class="message-error">{{ $message }}</div>
                 @enderror
 
-                <textarea name="message" class="message-input" placeholder="取引メッセージを記入してください">{{ old('message') }}</textarea>
+                @error('image')
+                    <div class="message-error">{{ $message }}</div>
+                @enderror
+
+                <textarea name="message" id="messageInput" class="message-input" placeholder="取引メッセージを記入してください">{{ old('message') }}</textarea>
             </div>
 
-            <input type="file" name="image" id="image" accept=".jpeg,.png" hidden>
+            <input type="file" name="image" id="image" hidden>
 
             <label for="image" class="image-add-btn">
                 画像を追加
@@ -260,7 +264,7 @@
 
         const ratingForm = document.getElementById('ratingForm');
         if (ratingForm) {
-            ratingForm.addEventListener('submit', function (e) {
+            ratingForm.addEventListener('submit', function(e) {
                 if (!ratingValue.value) {
                     e.preventDefault();
                     alert('評価を選択してください');
@@ -282,5 +286,28 @@
                 openRatingModal();
             });
         @endif
+
+        const transactionId = @json($transaction->id);
+        const storageKey = `transaction_${transactionId}_message`;
+        const messageInput = document.getElementById('messageInput');
+        const messageForm = document.querySelector('.message-form');
+
+        if (messageInput) {
+            const savedMessage = localStorage.getItem(storageKey);
+
+            if (!messageInput.value && savedMessage !== null) {
+                messageInput.value = savedMessage;
+            }
+
+            messageInput.addEventListener('input', function() {
+                localStorage.setItem(storageKey, messageInput.value);
+            });
+        }
+
+        if (messageForm) {
+            messageForm.addEventListener('submit', function() {
+                localStorage.removeItem(storageKey);
+            });
+        }
     </script>
 @endsection

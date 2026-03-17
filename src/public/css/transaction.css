@@ -148,6 +148,21 @@
     margin-left: auto;
 }
 
+.image-message {
+    background: transparent;
+    padding: 0;
+    min-height: auto;
+}
+
+.chat-image {
+    display: block;
+    width: 100%;
+    max-width: 280px;
+    height: auto;
+    border-radius: 8px;
+    object-fit: contain;
+}
+
 .message-actions {
     display: flex;
     justify-content: flex-end;
@@ -376,4 +391,41 @@ textarea.message-input {
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
+}
+
+@media screen and (min-width: 768px) and (max-width: 850px) {
+    .transaction-page {
+        flex-direction: column;
+    }
+
+    .sidebar {
+        width: 100%;
+        min-height: auto;
+        padding: 20px 16px;
+    }
+
+    .main-content {
+        padding: 20px 16px 140px;
+    }
+
+    .message-form-area {
+        left: 16px;
+        right: 16px;
+        bottom: 16px;
+    }
+
+    .product-section,
+    .top-header {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .message-left,
+    .message-right {
+        width: min(100%, 420px);
+    }
+
+    .chat-image {
+        max-width: 220px;
+    }
 }
